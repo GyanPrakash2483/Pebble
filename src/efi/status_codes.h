@@ -60,3 +60,4 @@
 
 
 #define EFI_ERROR(c)            ((BOOLEAN)(((INTN)(c)) < 0))
+#define EFI_WARNING(c)          ((BOOLEAN)(((INTN)(c)) > 0))
