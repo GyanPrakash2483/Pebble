@@ -30,4 +30,4 @@ EFI_STATUS EFIAPI efi_main(EFI_HANDLE image, EFI_SYSTEM_TABLE *st) {
 
 ## License
 
-[MIT](LICENSE)
+[License](LICENSE)
