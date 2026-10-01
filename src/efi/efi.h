@@ -54,6 +54,65 @@ typedef EFI_STATUS (EFIAPI *EFI_TEXT_STRING) (
     IN CHAR16                               *String
 );
 
+// Verifies that all characters in a string can be output to the target device
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_TEST_STRING) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This,
+    IN CHAR16                               *String
+);
+
+// Returns information for an available text mode that the output device(s) supports
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_QUERY_MODE) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This,
+    IN UINTN                                ModeNumber,
+    OUT UINTN                               *Columns,
+    OUT UINTN                               *Rows
+);
+
+// Sets the output device(s) to a specified mode
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_SET_MODE) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This,
+    IN UINTN                                ModeNumber
+);
+
+// Sets the background and foreground colors for the OutputString()
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_SET_ATTRIBUTE) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This,
+    IN UINTN                                Attribute
+);
+
+// Clears the output device(s) display to the currently selected background color
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_CLEAR_SCREEN) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This
+);
+
+// Sets the current coordinates of the cursor position
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_SET_CURSOR_POSITION) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This,
+    IN UINTN                                Column,
+    IN UINTN                                Row
+);
+
+// Makes the cursor visible or invisible
+typedef EFI_STATUS (EFIAPI *EFI_TEXT_ENABLE_CURSOR) (
+    IN EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL      *This,
+    IN BOOLEAN                              Visible
+);
+
+/*
+The following data values in the SIMPLE_TEXT_OUTPUT_MODE
+interface are read-only and are changed by using the
+appropriate interface functions
+*/
+typedef struct {
+    INT32                   MaxMode;
+    //current settings
+    INT32                   Mode;
+    INT32                   Attribute;
+    INT32                   CursorColumn;
+    INT32                   CursorRow;
+    BOOLEAN                 CursorVisible;
+} SIMPLE_TEXT_OUTPUT_MODE;
+
 // This protocol is used to control text-based output devices
 struct _EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL {
     EFI_TEXT_RESET                          Reset;
