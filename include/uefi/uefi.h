@@ -227,6 +227,58 @@ typedef EFI_STATUS (EFIAPI *EFI_SET_VARIABLE) (
     IN VOID             *Data
 );
 
+// Returns the next high 32 bits of the platform’s monotonic counter
+typedef EFI_STATUS (EFIAPI *EFI_GET_NEXT_HIGH_MONO_COUNT) (
+    OUT UINT32          *HighCount
+);
+
+// Reset Type
+typedef enum {
+    EfiResetCold,
+    EfiResetWarm,
+    EfiResetShutdown,
+    EfiResetPlatformSpecific
+} EFI_RESET_TYPE;
+
+// Resets the entire platform
+typedef VOID (EFIAPI *EFI_RESET_SYSTEM) (
+    IN EFI_RESET_TYPE       ResetType,
+    IN EFI_STATUS           ResetStatus,
+    IN UINTN                DataSize,
+    IN VOID                 *ResetData OPTIONAL
+);
+
+// Capsule Header
+typedef struct {
+    EFI_GUID            CapsuleGuid;
+    UINT32              HeaderSize;
+    UINT32              Flags;
+    UINT32              CapsuleImageSize;
+} EFI_CAPSULE_HEADER;
+
+// Passes capsules to the firmware with both virtual and physical mapping
+typedef EFI_STATUS (EFIAPI *EFI_UPDATE_CAPSULE) (
+    IN EFI_CAPSULE_HEADER       **CapsuleHeaderArray,
+    IN UINTN                    CapsuleCount,
+    IN EFI_PHYSICAL_ADDRESS     ScatterGatherList OPTIONAL
+);
+
+// Returns if the capsule can be supported via UpdateCapsule()
+typedef EFI_STATUS (EFIAPI *EFI_QUERY_CAPSULE_CAPABILITIES) (
+    IN EFI_CAPSULE_HEADER       **CapsuleHeaderArray,
+    IN UINTN                    CapsuleCount,
+    OUT UINT64                  *MaximumCapsuleSize,
+    OUT EFI_RESET_TYPE          *ResetType
+);
+
+
+typedef EFI_STATUS (EFIAPI *EFI_QUERY_VARIABLE_INFO) (
+    IN UINT32           Attributes,
+    OUT UINT64          *MaximumVariableStorageSize,
+    OUT UINT64          *RemainingVariableStorageSize,
+    OUT UINT64          *MaximumVariableSize
+);
+
 // Contains a table header and pointers to all of the runtime services
 typedef struct {
     EFI_TABLE_HEADER                    Hdr;
