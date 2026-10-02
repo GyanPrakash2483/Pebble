@@ -1,6 +1,6 @@
 # uefi-headers
 
-Clean, spec-based C headers for writing UEFI applications, bootloaders, and drivers.
+Clean, spec-based, documented C headers for writing UEFI applications, bootloaders, and drivers.
 
 uefi-headers provides type definitions, protocol structures, GUIDs, and constants from the UEFI specification. It's header-only and has no dependencies. Add it to your include path and start writing.
 
