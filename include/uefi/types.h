@@ -26,9 +26,7 @@ typedef UINT8 BOOLEAN;                  // Logical Boolean. 1-byte value contain
 typedef INT64 INTN;                     // Signed value of native width (8 bytes on supported 64-bit processor instructions)
 typedef UINT64 UINTN;                   // Unsigned value of native width (8 bytes on supported 64-bit processor instructions)
 
-/**
-128-bit buffer containing a unique identifier value. Unless otherwise specified, aligned on a 64-bit boundary.
-*/
+// 128-bit buffer containing a unique identifier value. Unless otherwise specified, aligned on a 64-bit boundary.
 typedef struct __attribute__((aligned(8))) {
     UINT32 Data1;
     UINT16 Data2;
@@ -44,30 +42,22 @@ typedef VOID *EFI_EVENT;                // Handle to an event structure (Type VO
 typedef UINT64 EFI_LBA;                 // Logical block address (Type UINT64)
 typedef UINTN EFI_TPL;                  // Task priority level (Type UINTN)
 
-/**
-32-byte buffer containing a network Media Access Control address
-*/
+// 32-byte buffer containing a network Media Access Control address
 typedef struct {
     UINT8 Addr[32];
 } EFI_MAC_ADDRESS;
 
-/**
-An IPv4 internet protocol address (4-byte buffer)
-*/
+// An IPv4 internet protocol address (4-byte buffer)
 typedef struct {
     UINT8 Addr[4];
 } EFI_IPv4_ADDRESS;
 
-/**
-An IPv6 internet protocol address (16-byte buffer)
-*/
+// An IPv6 internet protocol address (16-byte buffer)
 typedef struct {
     UINT8 Addr[16];
 } EFI_IPv6_ADDRESS;
 
-/**
-16-byte buffer aligned on a 4-byte boundary. An IPv4 or IPv6 internet protocol address.
-*/
+// 16-byte buffer aligned on a 4-byte boundary. An IPv4 or IPv6 internet protocol address.
 typedef union __attribute__((aligned(4))) {
     UINT32 Addr[4];
     EFI_IPv4_ADDRESS v4;

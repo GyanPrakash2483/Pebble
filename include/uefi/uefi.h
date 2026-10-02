@@ -149,7 +149,10 @@ typedef struct {
     BOOLEAN         SetsToZero;
 } EFI_TIME_CAPABILITIES;
 
-// Returns the current time and date information, and the time-keeping capabilities of the hardware platform
+/*
+Returns the current time and date information, and
+the time-keeping capabilities of the hardware platform
+*/
 typedef EFI_STATUS (EFIAPI *EFI_GET_TIME) (
     OUT EFI_TIME                    *Time,
     OUT EFI_TIME_CAPABILITIES       *Capabilities OPTIONAL
