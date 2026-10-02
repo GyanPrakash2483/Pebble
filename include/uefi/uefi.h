@@ -167,19 +167,62 @@ typedef EFI_STATUS (EFIAPI *EFI_GET_WAKEUP_TIME) (
     OUT EFI_TIME        *Time 
 );
 
-
+// Sets the system wakeup alarm clock time
 typedef EFI_STATUS (EFIAPI *EFI_SET_WAKEUP_TIME) (
     IN BOOLEAN          *Enabled,
     IN EFI_TIME         *Time OPTIONAL
 );
 
+// Memory Descriptor
+typedef struct {
+    UINT32                      Type;
+    EFI_PHYSICAL_ADDRESS        PhysicalStart;
+    EFI_VIRTUAL_ADDRESS         VirtualStart;
+    UINT64                      NumberOfPages;
+    UINT64                      Attribute;
+} EFI_MEMORY_DESCRIPTOR;
 
+// Changes the runtime addressing mode of EFI firmware from physical to virtual
 typedef EFI_STATUS (EFIAPI *EFI_SET_VIRTUAL_ADDRESS_MAP) (
     IN UINTN                    MemoryMapSize,
     IN UINTN                    DescriptorSize,
     IN UINT32                   DescriptorVersion,
     IN EFI_MEMORY_DESCRIPTOR    *VirtualMap
-)
+);
+
+// Determines the new virtual address that is to be used on subsequent memory accesses
+typedef EFI_STATUS (EFIAPI *EFI_CONVERT_POINTER) (
+    IN UINTN            DebugDisposition,
+    IN VOID             **Address
+);
+
+// Returns the value of a variable
+typedef EFI_STATUS (EFIAPI *EFI_GET_VARIABLE) (
+    IN CHAR16           *VariableName,
+    IN EFI_GUID         *VendorGuid,
+    OUT UINT32          *Attributes OPTIONAL,
+    IN OUT UINTN        *DataSize,
+    OUT VOID            *Data OPTIONAL
+);
+
+// Enumerates the current variable names
+typedef EFI_STATUS (EFIAPI *EFI_GET_NEXT_VARIABLE_NAME) (
+    IN OUT UINTN        *VariableNameSize,
+    IN OUT CHAR16       *VariableName,
+    IN OUT EFI_GUID     *VendorGuid
+);
+
+/**
+Sets the value of a variable. This service can be used to create a new
+variable, modify the value of an existing variable, or to delete an existing variable.
+*/
+typedef EFI_STATUS (EFIAPI *EFI_SET_VARIABLE) (
+    IN CHAR16           *VariableName,
+    IN EFI_GUID         *VendorGuid,
+    IN UINT32           Attributes,
+    IN UINTN            DataSize,
+    IN VOID             *Data
+);
 
 // Contains a table header and pointers to all of the runtime services
 typedef struct {
@@ -234,10 +277,3 @@ typedef EFI_STATUS (EFIAPI *EFI_IMAGE_ENTRY_POINT) (
     IN EFI_HANDLE ImageHandle,
     IN EFI_SYSTEM_TABLE *SystemTable
 );
-
-
-
-
-
-
-
